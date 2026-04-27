@@ -1,0 +1,33 @@
+app.get("/api/productos",(req,res)=>{
+    connection.query("SELECT * FROM producos",(err,result)=>{
+        if(err){
+            console.log(err);
+            return;
+        }
+        res.json(result);
+    });
+});
+
+app.post("/api/ventas",(req,res)=>{
+    const {carrito,total}=req.body;
+
+    connection.query(
+        "INSERT INTO ventas (total) VALUES (?)",
+        [total],
+        (err,result)=>{
+            if(err){
+                console.log(err);
+                return;
+            }
+
+            const venta_id=result.insertId;
+            carrito.forEach(p=>{
+                connection.query(
+                    "INSERT INTO detalle_ventas (venta_id,nombre,precio) VALUES (?,?,?)",
+                    [venta_id,p.nombre,p.precio]
+                );
+            });
+            res.json({mensaje:"venta guardada"});
+        }
+    );
+});

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Panel Administrador</title>
+        <link rel="stylesheet" href="admin.css">
+    </head>
+    <body>
+        <header class="topbar">
+            <h1>Panel Administrador</h1>
+        </header>
+            <!--boton cerrar sesion-->
+        <button id="cerrarsesion" type="button" >Cerrar Sesión</button>
+                
+        <!----------agregar producto------------>
+        <section>
+        <div class="form-producto">    
+        <input type="text" id="nombre" placeholder="Nombre Producto">
+        <input type="text" id="precio" placeholder="Precio">
+        <input type="text" id="stock" placeholder="Stock">
+
+        <select id="categoria">
+            <option value="1"> Café y bebidas caliente</option>
+            <option value="2"> Bebidas frias sin cafe</option>
+            <option value="3"> Panaderia y pasteleria</option>
+            <option value="4"> Snacks y acompañamientos</option>
+        </select>
+
+        <!--agregar imagen a producto nuevo-->
+               
+        <input type="file" id="imagenproducto" accept="image/*">
+
+        <button id="btn-guardar" onclick="guardarproducto()">Guardar Producto</button>
+        <button id="btn-cancelar" onclick="limpiarformulario()" style="display: none;">Cancelar Edición</button>
+        </div>
+        </section>
+
+        <!------------lista productos------------>
+        <section>
+            <h2>Lista de Productos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Categoria</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaproductos"></tbody>
+            </table>
+        </section>
+
+        <!---------------usuarios----------------------->
+        <section>
+            <h2>Usuarios Registrados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Correo</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
+                    </tr>
+                </thead>
+                <tbody id="tablausuarios"></tbody>
+            </table>
+        </section>
+
+        <!---------------llamar archivo JS--------------------->
+        <script src="admin.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Maison Sabor!</title>    <!--nombre pagina-->
+    <link rel="stylesheet" href="styles.css"> <!--enlace con CSS-->
+</head>
+<body>
+    <header class="header">
+        <div class="menu container">
+           <!--<a href="#" class="logo">¡Maison Sabor!</a-->
+        </div>
+        <div class="header-content container">
+            <div class="header-txt">
+                <h1><span class="parfumerie">Bienvenido A</span></h1>
+                <h2><span class="lejour" >¡Maison Sabor!</span></h2>
+                <button type="button" class="btn-1" id="menuBtn" aria-label="mostrar Menú Principal" >informacion</button>  <!--boton que contiene las frases-->
+            </div>
+        </div>
+    </header>
+
+    <!-----------------------------------------------------------------seccion categoria----------------------------------------------------------->
+  
+        <!-----------categoria o menu---------->
+    <main id="menu" class="hide">
+        <div class="top-bar">
+            <a href="#" class="logo">¡Maison Sabor!</a>
+            <input type="text" id="Busqueda" placeholder="Buscar Productos..." aria-label="Buscar Productos Del Menú">
+            <!---------------menu de ingreso y registro------------>
+            <div class="top-buttons">
+                <div class="dropdown">
+                    <button id="btningresar">Ingresar</button>
+                    <div class="dropdown-content" id="userDropdown">
+                        <a id="openlogin">Iniciar Sesión</a>
+                        <a id="openregister">Registro</a>
+                    </div>
+                </div>
+                <!------------------- inicio de sesion--------------->
+                <form class="login-dropdown hide" id="loginDropdown" aria-labelledby="logintitle">
+                    <h3 id="logintitle">Iniciar Sesión</h3>
+                    <label for="loginUser">Usuario</label>
+                    <input type="text" id="loginUser">
+                    <label for="loginpass">Contraseña</label>
+                    <input type="password" id="loginpass">
+                    <button type="button" class="btn-login" id="btn-login">Entrar</button>
+                    <p class="error" id="loginerror" role="alert"></p> <!--el lector de pantalla lea el error automaticamente-->
+                </form>
+            <!----------------------carrito------------------->
+                <div class="login-dropdown" id="cartDropdown">
+                    <h3> Carrito</h3>
+                    <div id="cartItems"></div>
+                    <div class="cart-total">
+                        Total: $<span id="carttotal">0</span>
+                    </div>
+                    <div class="cart-actions">
+                        <button type="button" id="btnvaciarcarrito"> Vaciar Carrito</button>
+                        <button type="button" id="btnCheckout" class="btn-checkout">Finalizar Compra</button>
+                    </div>
+                </div>
+                <button id="btncarrito" class="btn-carrito" aria-label="Ver carrito">
+                    <img src="img/carritoventas.jpg" alt="Carrito" class="carrito-icono">             
+                    <span id="carritocount">0</span>
+                </button>
+            </div>
+        </div>
+        <!---------------------------registro-------------------->
+            <div class="modal-overlay overlay-register hide" id="modalOverlay">
+                <form id="formregister"class="modal-register" novalidate>
+                    <h3>Registro</h3>
+                    <label for="regnombre">Nombre</label>
+                    <input type="text" id="regnombre" autocomplete="off">
+                    <label for="regapellido">Apellidos</label>
+                    <input type="text" id="regapellido" autocomplete="off">
+                    <label for="regcorreo">Correo</label>
+                    <input type="email" id="regcorreo" autocomplete="email">
+                    <label for="regdireccion">Direccion</label>
+                    <input type="text" id="regdireccion" autocomplete="off">
+                    <label for="regtelefono">Telefono</label>
+                    <input type="tel" id="regtelefono" autocomplete="tel">
+                    <label for="regpass">Contraseña</label>
+                    <input type="password" id="regpass" autocomplete="new-password">
+                    <label for="regpass2">Confirmar Contraseña</label>
+                    <input type="password" id="regpass2" autocomplete="new-password">
+                    <button type="button" class="btn-login" id="btnregister">Registrarse</button>
+                    <p class="error" id="registererror" role="alert"></p>
+                </form> 
+            </div>    
+        <!------------mensaje en categorias---------------->
+        <div class="mensaje-frase" id="frase"></div>
+
+        <h2 class="titulo-categorias"> Menú</h2>
+        <!------------categorias------------------>
+        <div class="producto-grid" id="categoria">
+            <div class="producto" data-id="1">
+                <img src="img/bebidas cafe caliente.jpg"alt="Café Y Bebidas Calientes">
+                <h3>Café Y Bebidas Caliente</h3>
+            </div>
+            <div class="producto" data-id="2">
+                <img src="img/bebidas frias sin cafe.jpg"alt="Bedidas Frias Sin Café">
+                <h3>Bebidas Frias Sin Cafe</h3>
+            </div>
+                <div class="producto" data-id="3">
+                <img src="img/Panaderia-y-reposteria-dulce-01-1.png"alt="Panaderia Y Pasteleria">
+                <h3>Panaderia Y Pasteleria</h3>
+            </div>
+                <div class="producto" data-id="4">
+                <img src="img/snacks y acompañamiento.jpg"alt="Snacks Y Acompañamientos">
+                <h3>Snacks Y Acompañamientos</h3>
+            </div>
+        </div>
+        
+        <!--------------seleccion de productos-------------->
+        <section id="seccionproductos" class="hide">
+            <button id="btnvolver"class="btn btn-secondary">Volver</button>
+            <h2 id="titulocategoria"></h2>
+            <div id="listaproductos" class="producto-grid"></div>
+        </section>
+
+        <!-------- metodos de pago ejemplos - imagenes mostrar ------>
+        <div class="metodos-pago">
+            <h3>Métodos De Pago</h3>
+            <div class="metodos-img">
+                <img src="img/Mastercard.png"alt="Mastercard">
+                <img src="img/visa.png" alt="visa">
+                <img src="img/daviplata.png" alt="daviplata">
+                <img src="img/Nequi.png" alt="Nequi">
+            </div>           
+        </div>
+    </main>
+                    <!-------------opciones antes de compra---------------->
+                <div id="checkoutOverlay" class="modal-overlay hide">
+                    <div class="modal-box">
+                        <h3>Seleccionar opcion de compra</h3>
+                        <div class="checkout-buttons">
+                            <button id="btnpresencial" class="btn btn-primary"> En persona</button>
+                            <button id="btndistancia" class="btn btn-primary"> A distancia</button>
+                            <button id="btncerrarCheckout" class="btn btn-danger"> Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+   <!--------------------------------opcion de pedir --------------------------------->             
+        <!------------------distancia--------------> 
+              <div id="distanciaModal" class="modal-overlay hide">
+                <div class="modal-box">
+                    <h3>Compra A Distancia</h3>
+                    <div id="distanciaresumen"></div>
+                    <p>Total: $<span id="distanciatotal">0</span></p>
+                    <div id="opcionescompraonline" class="checkout-card hide">
+                        <h4> ¿Cómo deseas continuar?</h4>
+                        <button id="btnirlogin">Iniciar Sesión</button>
+                        <button id="btncontinvitado"> Compra como Invitado</button>
+                    </div>
+
+                    <!-------------distancia login finalizar compra------>
+                    <div id="logincompra" class="checkout-card hide">
+                        <h4>Iniciar Sesión</h4>
+
+                        <input type="text" id="loginusercompra" placeholder="correo" autocomplete="off">
+                        <input type="password" id="loginpasscompra" placeholder="contraseña" autocomplete="off">
+
+                        <button type="button" id="btnlogincompra">Entrar</button>
+
+                        <p id="loginerrorcompra" class="error-msg"></p>
+                    </div>
+
+                    <!----------distancia - invitado------------->
+                    <div id="datosinvitado" class="checkout-card hide">
+                        <h4>Datos de entrega</h4>
+                        <input type="text" id="invnombre" placeholder="Nombre Completo">
+                        <small id="errorinvnombre" class="error-msg"></small>
+
+                        <input type="text" id="invdireccion" placeholder="Dirección">
+                        <small id="errorinvdireccion" class="error-msg"></small>
+
+                        <input type="text" id="invtelefono" placeholder="Teléfono">
+                        <small id="errorinvtelefono" class="error-msg"></small>
+                    </div>
+                <div id="seccionpagodistancia" class="checkout-card hide">       
+                    <h4>Método de Pago</h4>
+                    <div class="metodos-lista metodos-pago">
+                        <label class="opcion-pago">
+                            <input type="radio" name="pagodistancia" value="nequi">
+                            <span>Nequi (QR)</span>
+                        </label>
+                            <div id="formnequi" class="hide">
+                                <input type="text" id="nequinumero" placeholder="Número de celular Nequi">
+                                <small id="errornequi" class="error-msg"></small>
+                            </div>
+                        
+                        <label class="opcion-pago">
+                            <input type="radio" name="pagodistancia" value="efectivo">
+                            <span>Efectivo - contraentrega</span>
+                        </label>
+                        <label class="opcion-pago">
+                            <input type="radio" name="pagodistancia" value="tarjeta">
+                            <span>Tarjeta</span>
+                        </label>
+                    </div>
+
+                    <div id="formtarjeta" class="hide">
+                        <input type="text" id="numtarjeta" placeholder="Número de Tarjeta" maxlength="19">
+                        <small id="errortarjeta" class="error-msg"></small>
+
+                        <input type="text" id="titular" placeholder="Nombre del titular">
+                        <small id="errortitular" class="error-msg"></small>
+
+                        <input type="text" id="fecha" placeholder="MM/AA">
+                        <small id="errorfecha" class="error-msg"></small>
+
+                        <input type="text" id="cvv" placeholder="CVV">
+                        <small id="errorcvv" class="error-msg"></small>
+                    </div>
+
+                    <button id="btnfinalizardistancia" disabled>Finalizar Compra</button>
+                </div> 
+                    <button id="btncerrardistancia">Cancelar</button>
+                </div>
+              </div> 
+
+        <!------------------presencial--------------> 
+              <div id="presencialModal" class="modal-overlay hide">
+                <div class="modal-box">
+                    <h3>Compra Presencial</h3>
+                    <div id="presencialresumen"></div>
+                    <p>Total: $<span id="presencialtotal">0</span></p>
+
+                    <h4>Método de Pago</h4>
+                    <div class="metodos-lista metodos-pago">
+                        <label class="opcion-pago">
+                            <input type="radio" name="pagopresencial" value="nequi">
+                            <span>Nequi (QR)</span>
+                        </label>
+                        <label class="opcion-pago">
+                            <input type="radio" name="pagopresencial" value="efectivo">
+                            <span>Efectivo - contraentrega</span>
+                        </label>
+                        <label class="opcion-pago">
+                            <input type="radio" name="pagopresencial" value="tarjeta">
+                            <span>Tarjeta</span>
+                        </label>
+                    </div>
+
+                    <button id="btnfinalizarpresencial" disabled>Finalizar Compra</button>
+                    <button id="btncerrarpresencial">Cancelar</button>
+                </div>
+              </div> 
+
+    <!--------------enlaces con los de mas archivos -------------->
+    <script src="arch.js" defer></script>  <!--enlace con JS - arch-->
+    <script src="carrito.js"defer></script><!--enclace con JS carrito-->
+    <script src="auth.js" defer></script>
+    <script src="producto.js" defer></script>
+
+    <!------------------mensaje de compra------------------>
+    <div id="successModal" class="modal-overlay hide">
+        <div class="modal-box success">
+            <h3> Pedido Confirmado</h3>
+            <p> Tu pedido fue enviado correctamente.</p>
+            <button id="btncerrarsuccess">Aceptar</button>
+        </div>
+    </div>
+</body>
+</html>

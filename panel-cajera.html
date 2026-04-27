@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Caja</title>
+    <link rel="stylesheet" href="caja.css">
+</head>
+
+<body>
+<!-------------titulo del panel-------------------------->
+    <h1>Panel De Ventas</h1>  
+    
+    <!--boton cerrar sesion-->
+    <button id="cerrarsesion" type="button" >Cerrar Sesión</button>
+    
+    <!--barra de busqueda-->
+    <div class="buscar-box">
+        <h2>Buscar Producto</h2>
+        <input type="text" id="buscarproducto" placeholder="Escribe el nombre del producto...">
+    </div>
+    <br><br>
+<div class="panel-principal">
+    <div class="panel-izq">
+    <!--------categorias------->
+    <h3>Categorías</h3>
+    <div class="producto-grid" id="categorias">
+        
+        <div class="producto" data-id="1">
+            <img src="img/bebidas cafe caliente.jpg">
+            <h3>Café y Bebidas Calientes</h3>
+        </div>
+
+        <div class="producto" data-id="2">
+            <img src="img/bebidas frias sin cafe.jpg">
+            <h3>Bebidas Frías Sin Café</h3>
+        </div>
+
+        <div class="producto" data-id="3">
+            <img src="img/Panaderia-y-reposteria-dulce-01-1.png">
+            <h3>Panadería y Pastelerpía</h3>
+        </div>
+
+        <div class="producto" data-id="4">
+            <img src="img/snacks y acompañamiento.jpg">
+            <h3>Snacks y Acompañamiento</h3>
+        </div>
+    </div>
+        <div id="productos"></div>
+    </div>
+    <!--carrito-->
+    
+    <div class="panel-carrito">
+        <h4>Carrito</h4>
+        <div id="carrito"></div>
+        <p>Total: $<span id="total"></span></p>
+    
+        <!--metodo de pagos-->
+        <h5>Método De Pago</h5>
+        <div class="metodos-pago">
+            <button data-pago="efectivo">Efectivo</button>
+            <button data-pago="nequi">Nequi</button>
+            <button data-pago="tarjeta">Tarjeta</button>
+        </div>    
+        <!--metodo de pago efectivo-->
+        <div id="pagoefectivo" style="display: none;">
+            <label>Dinero Recibido</label>
+            <input type="number" id="dinerorecibido" placeholder="Ingrese monto">
+            <p>Cambio: $<span id="cambio">0</span></p>
+        </div>
+
+        <br><br>
+        <!--boton de finalizacion-->
+        <button id="finalizar">Finalizar Venta</button>
+        <button id="cancelar">Cancelar Venta</button>
+    </div>
+</div>
+
+    <!--------------ventas del dia --------------->
+    <button id="btnventas">Ver Ventas Del Día</button>
+    <div id="panelventas" class="panel-ventas">
+    <h6> Ventas Del Día</h6>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Venta</th>
+                <th>Total</th>
+                <th>Método de Pago</th>
+                <th>Hora</th>
+            </tr>
+        </thead>
+        <tbody id="tablaventas"></tbody>
+        </table>
+        <button id="generarreporte">Generar Reporte Del Día</button>
+        <h6>Resumen</h6>
+        <p>Efectivo: $<span id="totalefectivo">0</span></p>
+        <p>Nequi: $<span id="totalnequi">0</span></p>
+        <p>Tarjeta: $<span id="totaltarjeta">0</span></p>
+        <p><strong>Total del Día: <span id="totaldia">0</span></strong></p>
+    </div>
+
+    <div id="mensaje" class="modal-mensaje">
+        <div class="modal-contenido">
+            <p id="textoMensaje"></p>
+        </div>
+    </div>
+
+    <!------------imprimir venta------>
+    <div id="reciboModal" class="recibo-Modal">
+        <div class="recibo">
+            <h2>Café</h2>
+            <div id="recibocontenido"></div>
+        </div>
+    </div>
+    <!---mensaje flotante - imprimir----->
+    <div id="notificacionventa" class="notificacion-venta">
+        <span> Venta registrada correctamente</span>
+        <button onclick="imprimirrecibo()">Imprimir</button>
+    </div>
+
+    <!--llamado JS-->
+    <script src="caja.js" defer></script>
+    
+</body>
+</html>
