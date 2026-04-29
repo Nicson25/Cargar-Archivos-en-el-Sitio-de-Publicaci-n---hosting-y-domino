@@ -1,3 +1,4 @@
+require("dotenv").config(); // comando para desplegar Render
 const express = require("express");  //inportar librerias y crear servidor
 const cors=require("cors"); //  cors permite contectar el html con el servidor
 const app = express(); //envia y recibes datos
