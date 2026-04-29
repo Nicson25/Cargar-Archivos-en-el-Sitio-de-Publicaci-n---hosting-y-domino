@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         btn.textContent="Generando reporte...";
         btn.disabled=true;
 
-        fetch("http://localhost:3000/reporte/hoy")
+        fetch("/reporte/hoy")
         .then(res=>res.json())
         .then(data=>{
             if(data.success){
@@ -234,7 +234,7 @@ function finalizarventa(){
             return;
         }
     }
-    fetch("http://localhost:3000/checkout",{
+    fetch("/checkout",{
         method:"POST",
         headers:{
             "content-Type":"application/json"
@@ -287,7 +287,7 @@ function finalizarventa(){
 
 //cargar productos
 async function cargarproductos(categoriaId) {
-    const res=await fetch(`http://localhost:3000/producto/categoria/${categoriaId}`);
+    const res=await fetch(`/producto/categoria/${categoriaId}`);
     const producto=await res.json();
     const contenedor=document.getElementById("productos");
 
@@ -311,7 +311,7 @@ async function cargarproductos(categoriaId) {
         div.onclick=()=>agregarproducto(p.id,p.nombre,p.precio,p.stock);
 
         div.innerHTML=`
-        <img src="http://localhost:3000/img/${p.imagen}">
+        <img src="/img/${p.imagen}">
         <h4>${p.nombre}</h4>
         <p>$${p.precio}</p>
         <small>Stock: ${p.stock}</small>
@@ -334,7 +334,7 @@ async function buscarproducto(e) {
     document.getElementById("categorias").style.display="none";
 
     //conectar con productos para busqueda
-    const res=await fetch(`http://localhost:3000/producto/buscar/${texto}`);
+    const res=await fetch(`/producto/buscar/${texto}`);
     const producto=await res.json();
     
     contenedor.innerHTML="";
@@ -356,7 +356,7 @@ async function buscarproducto(e) {
         }
 
         div.innerHTML=`
-        <img src="http://localhost:3000/img/${p.imagen}">
+        <img src="/img/${p.imagen}">
         <h4>${p.nombre}</h4>
         <p>$${p.precio}</p>`;
 
@@ -387,7 +387,7 @@ function mostrarmensaje(texto){
 
 // resumen de compra del dia
 async function cargarventas() {
-    const res=await fetch("http://localhost:3000/ventas/hoy");
+    const res=await fetch("/ventas/hoy");
     const ventas=await res.json();
     const tabla=document.getElementById("tablaventas");
 

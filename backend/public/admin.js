@@ -34,7 +34,7 @@ async function agregarproducto() {
         formData.append("imagen", imagenArchivo);
     }
 
-    const res = await fetch("http://localhost:3000/admin/producto", {
+    const res = await fetch("/admin/producto", {
         method: "POST",
         body: formData
     });
@@ -58,7 +58,7 @@ async function agregarproducto() {
         const precio=document.getElementById("precio").value;
         const stock=document.getElementById("stock").value;
         
-        const res= await fetch(`http://localhost:3000/admin/producto/${id}`,{
+        const res= await fetch(`/admin/producto/${id}`,{
             method:"PUT",
             headers:{
             "Content-Type":"application/json"
@@ -82,7 +82,7 @@ async function agregarproducto() {
 //funcion eliminarproducto - admin
     async function eliminarproducto(id) {
         if(!confirm("¿Eliminar producto?")) return;
-            const res= await fetch(`http://localhost:3000/admin/producto/${id}`,{
+            const res= await fetch(`/admin/producto/${id}`,{
             method:"DELETE"
         });
         const data=await res.json();
@@ -97,7 +97,7 @@ async function agregarproducto() {
     async function ajustarstock(id) {
         const stock=document.getElementById("stocknuevo").value;
 
-        await fetch(`http://localhost:3000/admin/stock/${id}`,{
+        await fetch(`/admin/stock/${id}`,{
             method:"PUT",
             headers:{
                 "Content-Type":"application/json"
@@ -110,7 +110,7 @@ async function agregarproducto() {
 
 // ver usuario - admin
 async function cargarproducto() {
-    const res=await fetch("http://localhost:3000/admin/productos");
+    const res=await fetch("/admin/productos");
     const productos=await res.json();
     const tabla=document.getElementById("tablaproductos");
 
@@ -123,7 +123,7 @@ async function cargarproducto() {
         <td>${i+1}</td>
 
         <td>
-         <img src="http://localhost:3000/img/${p.imagen}" width="50" style="object-fit: cover; border-radius: 5px;">
+         <img src="/img/${p.imagen}" width="50" style="object-fit: cover; border-radius: 5px;">
         </td>
 
         <td>${p.nombre}</td>
@@ -184,7 +184,7 @@ function limpiarFormulario() {
 
 // cargar usuarios registrados
 async function cargarusuarios() {
-    const res=await fetch("http://localhost:3000/admin/usuarios");
+    const res=await fetch("/admin/usuarios");
     const usuarios=await res.json();
     const tabla= document.getElementById("tablausuarios");
 
@@ -213,7 +213,7 @@ async function cargarusuarios() {
 async function eliminarusuario(id) {
     if(!confirm("¿Eliminar usuario?")) return;
 
-    const res=await fetch(`http://localhost:3000/admin/usuario/${id}`,{
+    const res=await fetch(`/admin/usuario/${id}`,{
         method:"DELETE"
     });
 

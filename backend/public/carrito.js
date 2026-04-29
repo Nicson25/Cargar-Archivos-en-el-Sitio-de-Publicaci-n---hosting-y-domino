@@ -452,7 +452,7 @@ document.getElementById("btnlogincompra")?.addEventListener("click",async()=>{
     }
 
     try{
-        const res=await fetch("http://localhost:3000/login",{
+        const res=await fetch("/login",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body: JSON.stringify({correo,pass})
@@ -579,7 +579,7 @@ function procesarCheckout(tipo, metodo_pago){
         (acc,p) => acc + (p.precio*p.cantidad), 0
     );
 
-    fetch("http://localhost:3000/checkout",{
+    fetch("/checkout",{
         method:"POST",
         headers:{
 
