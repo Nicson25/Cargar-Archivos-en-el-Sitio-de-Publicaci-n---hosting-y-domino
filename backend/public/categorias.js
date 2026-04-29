@@ -1,5 +1,5 @@
 const categoria= document.getElementById("categoria");
-fetch("http://localhost:3000/categoria")
+fetch("/categoria")
 .then(res =>res.json())
 .then(data=>{
     data.forEach(cat =>{

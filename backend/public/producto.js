@@ -33,7 +33,7 @@ btnvolver.addEventListener("click", () =>{
 function cargarproducto(categoriaId){
     console.log("Cargando producto de categoria:",categoriaId);
 
-    fetch(`http://localhost:3000/producto/categoria/${categoriaId}`)
+    fetch(`/producto/categoria/${categoriaId}`)
     .then(res=>res.json())
     .then(data=>{
         console.log("Productos recibidos:", data);
