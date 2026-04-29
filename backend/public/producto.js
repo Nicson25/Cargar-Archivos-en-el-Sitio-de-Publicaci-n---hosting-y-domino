@@ -52,7 +52,7 @@ function mostrarproducto(producto){
         
         // enlace para imagenes de productos
         div.innerHTML=`
-        <img src="/img/${producto.imagen}"> 
+        <img src="${producto.imagen}"> 
         <h4>${p.nombre}</h4>
         <p>$${p.precio}</p>
         <div class="contador">
