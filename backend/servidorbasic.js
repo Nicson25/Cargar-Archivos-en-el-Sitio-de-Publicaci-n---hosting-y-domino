@@ -1,4 +1,5 @@
 require("dotenv").config(); // comando para desplegar Render
+const path =require("path"); //comando para desplegar Render
 const express = require("express");  //inportar librerias y crear servidor
 const cors=require("cors"); //  cors permite contectar el html con el servidor
 const app = express(); //envia y recibes datos
@@ -8,14 +9,15 @@ const bcrypt = require("bcryptjs");  // encriptacion de contraseñas
 const PDFDocument=require("pdfkit"); // generar PDF
 const fs=require("fs"); // generar PDF
 const multer=require('multer');
-const upload= multer({dest: 'public/'}); //carpeta en se guardan imagenes
+const upload= multer({dest: 'public/img/'}); //carpeta en se guardan imagenes
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname,"public")));// comando para desplegar
 
 //prueba del servidor
 app.get("/", (req, res) =>{
-    res.send("Servidor funcionando correctamente");
+    res.sendFile(path.join(__dirname,"public", "index.html")); //modificado para desplegar
 });
 
 // registro de usuarios//
@@ -261,10 +263,8 @@ app.post("/register", (req,res)=>{
                 res.json({success:false, message:"Error en la venta"})
             }
         });    
-
-        const path = require('path');
         
-        app.use('/img', express.static(path.join(__dirname, 'public')));
+        ////////app.use('/img', express.static(path.join(__dirname, 'public','img'))); se modifica para despligue
 
         //barra de busqueda producto
         app.get("/producto/buscar/:text",(req,res)=>{
