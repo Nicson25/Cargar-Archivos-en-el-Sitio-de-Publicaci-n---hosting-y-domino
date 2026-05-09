@@ -9,7 +9,7 @@ const bcrypt = require("bcryptjs");  // encriptacion de contraseñas
 const PDFDocument=require("pdfkit"); // generar PDF
 const fs=require("fs"); // generar PDF
 const multer=require('multer');
-const upload= multer({dest: 'public/img/'}); //carpeta en se guardan imagenes
+const upload= multer({dest: 'public/'}); //carpeta en se guardan imagenes
 
 app.use(cors());
 app.use(express.json());
