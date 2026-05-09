@@ -112,9 +112,12 @@ document.addEventListener("DOMContentLoaded",()=>{
         .then(data=>{
             if(data.success){
                 mostrarmensaje("Reporte generado correctamente");
+                const link=document.createElement("a");  // se agrega para repote del dia cuando se desblega
+                link.href=`/reporte/${data.archivo}`; // se agrega para repote del dia cuando se desblega
+                link.click(); // se agrega para repote del dia cuando se desblega
             }
-            btn.textContent="Generar Reporte Del Día";
-            btn.disabled=false;
+           // btn.textContent="Generar Reporte Del Día"; // se desabilita para repote del dia cuando se desblega
+            //btn.disabled=false;
         });
     });
 });

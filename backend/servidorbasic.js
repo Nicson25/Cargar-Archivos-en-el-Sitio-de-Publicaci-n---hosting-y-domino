@@ -14,6 +14,7 @@ const upload= multer({dest: 'public/'}); //carpeta en se guardan imagenes
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname,"public")));// comando para desplegar
+app.use("/reporte",express.static(path.join(__dirname,"reporte")));  // comado genera report en desplegar
 
 //prueba del servidor
 app.get("/", (req, res) =>{
