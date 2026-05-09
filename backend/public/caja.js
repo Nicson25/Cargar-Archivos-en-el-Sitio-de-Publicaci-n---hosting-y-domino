@@ -312,7 +312,7 @@ async function cargarproductos(categoriaId) {
 
         div.innerHTML=`
         <img src="/${p.imagen}">
-        <h4>${p.nombre}</h4>
+        <h4>${p.nombre}</h4> 
         <p>$${p.precio}</p>
         <small>Stock: ${p.stock}</small>
         `;
@@ -356,7 +356,7 @@ async function buscarproducto(e) {
         }
 
         div.innerHTML=`
-        <img src="/img/${p.imagen}">
+        <img src="/${p.imagen}">
         <h4>${p.nombre}</h4>
         <p>$${p.precio}</p>`;
 
