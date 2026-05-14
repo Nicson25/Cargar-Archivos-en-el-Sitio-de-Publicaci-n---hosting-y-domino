@@ -11,7 +11,6 @@ const fs=require("fs"); // generar PDF
 
 //////////////////////// para desplegar y mostrar imagenes productos nuevos
 const multer=require('multer');
-const path=require('path');
 const storage=multer.diskStorage({
     destination: function(req, file, cb){
         cb(null, 'public/');
@@ -20,7 +19,7 @@ const storage=multer.diskStorage({
         cb(null, Date.now() + path.extname(file.originalname));
     }
 });
-const upload= multer({dest: 'public/'}); //carpeta en se guardan imagenes
+const upload= multer({storage: storage}); //carpeta en se guardan imagenes
 ///////////////////////
 
 app.use(cors());
