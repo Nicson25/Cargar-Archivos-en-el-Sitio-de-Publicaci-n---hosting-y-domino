@@ -8,8 +8,19 @@ const basedatos = require("./basedatos");  /// servidor conectado a base datos
 const bcrypt = require("bcryptjs");  // encriptacion de contraseñas
 const PDFDocument=require("pdfkit"); // generar PDF
 const fs=require("fs"); // generar PDF
+
+//////////////////////// para desplegar y mostrar imagenes productos nuevos
 const multer=require('multer');
+const storage=multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, 'public/');
+    },
+    filename: function(req, file, cb){
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
 const upload= multer({dest: 'public/'}); //carpeta en se guardan imagenes
+///////////////////////
 
 app.use(cors());
 app.use(express.json());
