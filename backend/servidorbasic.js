@@ -445,7 +445,7 @@ app.get("/admin/productos",(req,res)=>{
     // ver usuarios admin
     app.get("/admin/usuarios",(req,res)=>{
         basedatos.query(
-        "SELECT usuario.id,nombre,apellido, correo, direccion, telefono, rol.nombre AS rol FROM usuario JOIN rol ON usuario.rol_id=rol.id",
+        "SELECT usuario.id,usuario.nombre,usuario.apellido, usuario.correo, usuario.direccion, usuario.telefono, rol.nombre AS rol FROM usuario JOIN rol ON usuario.rol_id=rol.id",
             (err,result)=>{
             if(err){
                 console.error(err);
