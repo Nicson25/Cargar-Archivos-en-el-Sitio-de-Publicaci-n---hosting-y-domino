@@ -219,7 +219,6 @@ async function cargarusuarios() {
         <td>${u.correo}</td>
         <td>${u.direccion || ''}</td>
         <td>${u.telefono || ''}</td>
-        <td>${u.rol}</td>
         
         <td>
             ${
@@ -231,7 +230,6 @@ async function cargarusuarios() {
                 ${JSON.stringify(u.apellido)},
                 ${JSON.stringify(u.correo)},
                 ${JSON.stringify(u.telefono)},
-                ${JSON.stringify(u.rol)}
                 )'>Editar</button>`
             }
         </td>`;
@@ -263,7 +261,6 @@ function cargareditarusuario(id, nombre,apellido,correo,telefono,rol){
     document.getElementById("apellidousuario").value=apellido;
     document.getElementById("correousuario").value=correo;
     document.getElementById("telefonousuario").value=telefono;
-    document.getElementById("rolusuario").value=rol;
 
     usuarioeditado =id;
     document.getElementById("btn-guardarusuario").innerText="Actualizar Usuario";
@@ -276,7 +273,6 @@ async function guardarusuario() {
     const apellido = document.getElementById("apellidousuario").value;
     const correo = document.getElementById("correousuario").value;
     const telefono = document.getElementById("telefonousuario").value;
-    const rol = document.getElementById("rolusuario").value;
 
     const res=await fetch(`/admin/usuario/${usuarioeditado}`,{
         method:"PUT",
@@ -295,7 +291,7 @@ async function guardarusuario() {
         document.getElementById("apellidousuario").value="";
         document.getElementById("correousuario").value="";
         document.getElementById("telefonousuario").value="";
-        document.getElementById("rolusuario").value="cliente";      
+              
         
         usuarioeditado=null;
         document.getElementById("btn-guardarusuario").innerText="Guardar Usuario";
@@ -309,4 +305,9 @@ async function guardarusuario() {
 document.addEventListener("DOMContentLoaded",()=>{
     cargarproducto();
     cargarusuarios();
+
+    //cancelar edicion producto
+    document.getElementById("btn-cancelar").addEventListener("click",()=>{
+        limpiarFormulario();
+    })
 });
