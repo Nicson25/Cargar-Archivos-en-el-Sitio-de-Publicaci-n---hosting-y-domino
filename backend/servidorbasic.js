@@ -368,19 +368,27 @@ app.post("/register", (req,res)=>{
     });
 
     //editar producto ruta servi
-    app.put("/admin/producto/:id",(req,res)=>{
-        const {nombre,precio}=req.body;
+    app.put("/admin/producto/:id", upload.single('imagen'),(req,res)=>{
+        const {nombre,precio,stock,categoria_id}=req.body;
         const id=req.params.id;
-
-        basedatos.query(
-            "UPDATE producto SET nombre=?,precio=? WHERE id=?",
-                [nombre,precio,id],
+        let sql=`UPDATE producto SET nombre=?, precio=?,stock=?, categoria_id=?`;
+        let valores = [nombre, precio, stock, categoria_id];
+        
+        // si sube una imagen nueva
+            if(req.file){
+                sql +=`,imagen=?`;
+                valores.push("/"+req.file.filename);
+            }
+            sql +=` WHERE id=?`;
+            valores.push(id);
+        ///
+        basedatos.query(sql,valores,
             (err)=>{
                 if(err){
                     console.error(err);
                     return res.json({success:false});
                 }
-                res.json({success:true});
+                return res.json({success:true});
         });
     });
 

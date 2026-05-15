@@ -57,18 +57,27 @@ async function agregarproducto() {
         const nombre=document.getElementById("nombre").value;
         const precio=document.getElementById("precio").value;
         const stock=document.getElementById("stock").value;
-        
-        const res= await fetch(`/admin/producto/${id}`,{
+        const categoria=document.getElementById("categoria").value;
+
+        const imagenInput=document.getElementById("imagenproducto");
+        const imagenArchivo=imagenInput.files[0];
+
+        const formData=new FormData();
+
+        formData.append("nombre",nombre);
+        formData.append("precio",precio);
+        formData.append("stock",stock);
+        formData.append("categoria_id",categoria);
+
+        if(imagenArchivo){
+            formData.append("imagen",imagenArchivo);
+        }
+
+        const res=await fetch(`/admin/producto/${id}`,{
             method:"PUT",
-            headers:{
-            "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-            nombre:nombre,
-            precio:precio,
-            stock:stock
-            })
+            body: formData
         });
+
         const data=await res.json();
 
         if(data.success){
@@ -76,6 +85,8 @@ async function agregarproducto() {
             productoeditado=null;
             limpiarFormulario();
             cargarproducto();   
+        }else{
+            alert("Error al actualizar");
         }
     }
 
@@ -124,7 +135,7 @@ async function cargarproducto() {
         <td>${i+1}</td>
 
         <td>
-         <img src="${p.imagen}" width="50" style="object-fit: cover; border-radius: 5px;">         
+         <img src="/${p.imagen}" width="50" style="object-fit: cover; border-radius: 5px;">         
         </td>
         <td>${p.nombre}</td>
         <td>${p.categoria}</td>
@@ -132,7 +143,7 @@ async function cargarproducto() {
         <td>${p.stock}</td>
 
         <td>
-           <button onclick="cargareditar(${p.id},'${p.nombre}',${p.precio},${p.stock})">Editar</button>
+           <button onclick="cargareditar(${p.id},'${p.nombre}',${p.precio},${p.stock},${p.categoria_id})">Editar</button>
            <button onclick="eliminarproducto(${p.id})">Eliminar</button>
         </td>`;
 
@@ -141,13 +152,14 @@ async function cargarproducto() {
 }
 
 //funcion editar producto
-function cargareditar(id,nombre,precio,stock){
+function cargareditar(id,nombre,precio,stock,categoria){
 
     productoeditado=id;
 
     document.getElementById("nombre").value = nombre;
     document.getElementById("precio").value = precio;
-    document.getElementById("stock").value = stock; 
+    document.getElementById("stock").value = stock;
+    document.getElementById("categoria").value = categoria; 
 
     //cambiar texto boton y mostrar cancelar
     document.getElementById("btn-guardar").innerText="Actualizar Producto";
