@@ -135,7 +135,7 @@ async function cargarproducto() {
         <td>${i+1}</td>
 
         <td>
-         <img src="/${p.imagen}" width="50" style="object-fit: cover; border-radius: 5px;">         
+         <img src="${p.imagen}" width="50" style="object-fit: cover; border-radius: 5px;">         
         </td>
         <td>${p.nombre}</td>
         <td>${p.categoria}</td>
