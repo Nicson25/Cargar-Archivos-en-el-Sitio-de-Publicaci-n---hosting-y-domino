@@ -16,7 +16,7 @@ const storage=multer.diskStorage({
         cb(null, 'public/');
     },
     filename: function(req, file, cb){
-        cb(null, file.originalname);
+        cb(null, Date.now() + "-" + file.originalname);
     }
 });
 const upload= multer({storage: storage}); //carpeta en se guardan imagenes
@@ -405,7 +405,8 @@ app.post("/register", (req,res)=>{
                 return res.json({success:false});
                 }
                 res.json({success:true});
-            });
+            }
+        );
     });
 
     // ajustar stock
@@ -444,7 +445,7 @@ app.get("/admin/productos",(req,res)=>{
     // ver usuarios admin
     app.get("/admin/usuarios",(req,res)=>{
         basedatos.query(
-        "SELECT id,nombre,apellido, correo, direccion, telefono FROM usuario",
+        "SELECT usuario.id,nombre,apellido, correo, direccion, telefono, rol.nombre AS rol FROM usuario JOIN rol ON usuario.rol_id=rol.id",
             (err,result)=>{
             if(err){
                 console.error(err);
@@ -452,6 +453,25 @@ app.get("/admin/productos",(req,res)=>{
             }
             res.json(result);
         });
+    });
+    // editar usuario
+    app.put("/admin/usuario/:id",(req,res)=>{
+        const id =req.params.id;
+
+        const{
+            nombre,apellido, correo,telefono,rol
+        }=req.body;
+        basedatos.query(
+            `UPDATE usuario SET nombre=?,apellido=?,correo=?,telefono=?,rol_id=? WHERE id=?`,
+            [nombre, apellido,correo,telefono,rol==="admin" ? 3 : rol === "cajero" ? 2 : 1 , id],
+            (err)=>{
+                if(err){
+                    console.error(err);
+                    return res.json({success:false});
+                }
+                res.json({success:true});
+            }
+        );
     });
 
     //eliminar usuario
@@ -464,8 +484,9 @@ app.get("/admin/productos",(req,res)=>{
             (err)=>{
                 if(err){
                     console.error(err);
-                    return res.json({success:true});
+                    return res.json({success:false});
                 }
+                res.json({success:true});
             }
         );
     });

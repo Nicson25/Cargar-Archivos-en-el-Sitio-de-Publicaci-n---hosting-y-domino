@@ -143,7 +143,13 @@ async function cargarproducto() {
         <td>${p.stock}</td>
 
         <td>
-           <button onclick="cargareditar(${p.id},'${p.nombre}',${p.precio},${p.stock},${p.categoria_id})">Editar</button>
+           <button onclick='cargareditar(
+            ${p.id},
+            ${JSON.stringify(p.nombre)},
+            ${p.precio},
+            ${p.stock},
+            ${p.categoria_id}
+            )'>Editar</button>
            <button onclick="eliminarproducto(${p.id})">Eliminar</button>
         </td>`;
 
@@ -188,6 +194,7 @@ function limpiarFormulario() {
     document.getElementById("precio").value = "";
     document.getElementById("stock").value = "";
     document.getElementById("imagenproducto").value = "";
+    document.getElementById("categoria").value = "1";
     
     // UI: Revertir botón
     document.getElementById("btn-guardar").innerText = "Guardar Producto";
@@ -212,11 +219,22 @@ async function cargarusuarios() {
         <td>${u.correo}</td>
         <td>${u.direccion || ''}</td>
         <td>${u.telefono || ''}</td>
+        <td>${u.rol}</td>
         
         <td>
-            <button onclick="eliminarusuario(${u.id})">Eliminar</button>
-        </td>`
-        ;
+            ${
+                u.rol === "cliente"
+                ? `<button onclick="eliminarusuario(${u.id})">Eliminar</button>`
+                : `<button onclick='cargareditarusuario(
+                ${u.id},
+                ${JSON.stringify(u.nombre)},
+                ${JSON.stringify(u.apellido)},
+                ${JSON.stringify(u.correo)},
+                ${JSON.stringify(u.telefono)},
+                ${JSON.stringify(u.rol)}
+                )'>Editar</button>`
+            }
+        </td>`;
 
         tabla.appendChild(fila);
     });
@@ -239,19 +257,53 @@ async function eliminarusuario(id) {
     
 }
 
-//cerrar sesion
-function cerrarsesion(){
+/// editar usuario
+function cargareditarusuario(id, nombre,apellido,correo,telefono,rol){
+    document.getElementById("nombreusuario").value=nombre;
+    document.getElementById("apellidousuario").value=apellido;
+    document.getElementById("correousuario").value=correo;
+    document.getElementById("telefonousuario").value=telefono;
+    document.getElementById("rolusuario").value=rol;
 
-    if(!confirm("¿Desea cerrar sesión?")) return;
-
-    // borrar datos de sesión si existen
-    localStorage.removeItem("admin");
-
-    // redirigir al login
-    window.location.href = "index.html";
-
+    usuarioeditado =id;
+    document.getElementById("btn-guardarusuario").innerText="Actualizar Usuario";
 }
 
+let usuarioeditado = null;
+// guardar usuario
+async function guardarusuario() {
+    const nombre = document.getElementById("nombreusuario").value;
+    const apellido = document.getElementById("apellidousuario").value;
+    const correo = document.getElementById("correousuario").value;
+    const telefono = document.getElementById("telefonousuario").value;
+    const rol = document.getElementById("rolusuario").value;
+
+    const res=await fetch(`/admin/usuario/${usuarioeditado}`,{
+        method:"PUT",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            nombre,apellido,correo,telefono,rol
+        })
+    });
+
+    const data=await res.json();
+    if(data.success){
+        alert("Usuario actualizado");
+        document.getElementById("nombreusuario").value="";
+        document.getElementById("apellidousuario").value="";
+        document.getElementById("correousuario").value="";
+        document.getElementById("telefonousuario").value="";
+        document.getElementById("rolusuario").value="cliente";      
+        
+        usuarioeditado=null;
+        document.getElementById("btn-guardarusuario").innerText="Guardar Usuario";
+        cargarusuarios();
+    }else{
+        alert("Error al actualizar usuario");
+    }
+}
 
 // llenar autimaneticamente
 document.addEventListener("DOMContentLoaded",()=>{
