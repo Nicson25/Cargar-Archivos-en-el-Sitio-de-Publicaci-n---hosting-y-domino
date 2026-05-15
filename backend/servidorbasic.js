@@ -353,7 +353,7 @@ app.post("/register", (req,res)=>{
     // administrador
     app.post("/admin/producto", upload.single('imagen'),(req,res)=>{
         const {nombre,precio,stock,categoria_id}=req.body;
-        const imagen=req.file ? req.file.filename : "default.png";
+        const imagen=req.file ? `/`+ req.file.filename : "/default.png";
 
         basedatos.query(
         "INSERT INTO producto (nombre,precio,stock,categoria_id,imagen) VALUES(?,?,?,?,?)",
