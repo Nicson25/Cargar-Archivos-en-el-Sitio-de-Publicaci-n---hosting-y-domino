@@ -16,7 +16,7 @@ const storage=multer.diskStorage({
         cb(null, 'public/');
     },
     filename: function(req, file, cb){
-        cb(null, Date.now() + path.extname(file.originalname));
+        cb(null, file.originalname);
     }
 });
 const upload= multer({storage: storage}); //carpeta en se guardan imagenes
