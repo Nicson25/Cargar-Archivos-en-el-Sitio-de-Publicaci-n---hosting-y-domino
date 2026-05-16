@@ -359,7 +359,7 @@ async function buscarproducto(e) {
         }
 
         div.innerHTML=`
-        <img src="/${p.imagen}">
+        <img src="${p.imagen}">
         <h4>${p.nombre}</h4>
         <p>$${p.precio}</p>`;
 
