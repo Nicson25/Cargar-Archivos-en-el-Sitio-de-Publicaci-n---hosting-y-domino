@@ -343,33 +343,26 @@ async function buscarproducto(e) {
     contenedor.innerHTML="";
 
     producto.forEach(p=>{
+        console.log("Imagen:", p.imagen);
         const div=document.createElement("div");
 
         div.classList.add("producto");
 
+        div.innerHTML=`
+        <img src="${p.imagen}">
+        <h4>${p.nombre}</h4>
+        <p>$${p.precio}</p>`;        
+
+        // stock agotado
         if(p.stock <=0){
             div.style.opacity="0.5";
             div.innerHTML+=`<p style="color:red;">Sin Stock</p>`;
         }else{
             div.onclick=()=>agregarproducto(p.id,p.nombre,p.precio,p.stock);
         }
-        
-        if(p.stock<=5){
-            div.innerHTML+=`<p style="color:orange;">Stock Bajo</p>`;
-        }
 
-        div.innerHTML=`
-        <img src="${p.imagen}">
-        <h4>${p.nombre}</h4>
-        <p>$${p.precio}</p>`;
-
-        if(p.stock<=0){
-            div.style.opacity="0.5";
-            div.innerHTML+=`<p style="color:red;">Sin Stock</p>`;
-        }else{
-            div.onclick=()=>agregarproducto(p.id,p.nombre,p.precio,p.stock);
-        }
-        if(p.stock<=5 && p.stock>0){
+        //stock bajo        
+        if(p.stock<=5 && p.stock > 0){
             div.innerHTML+=`<p style="color:orange;">Stock Bajo</p>`;
         }
         contenedor.appendChild(div);
